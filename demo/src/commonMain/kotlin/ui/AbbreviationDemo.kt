@@ -9,15 +9,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import monoBodyOrange
 import monoBodyStringBold
-import nl.jacobras.humanreadable.DistanceUnit
 import nl.jacobras.humanreadable.HumanReadable
 
 @Composable
-internal fun DistanceDemo(
+internal fun AbbreviationDemo(
     selectedLanguageCode: String,
     modifier: Modifier = Modifier
 ) {
@@ -25,7 +25,7 @@ internal fun DistanceDemo(
 
     Column(modifier.fillMaxWidth()) {
         Text(
-            text = "Distance",
+            text = "Abbreviation",
             style = MaterialTheme.typography.headlineLarge
         )
         Spacer(Modifier.height(16.dp))
@@ -34,7 +34,7 @@ internal fun DistanceDemo(
             Text(
                 text = buildAnnotatedString {
                     withStyle(monoBodyOrange) { append("val ") }
-                    append("myDistance = ")
+                    append("myNumber = ")
                 },
                 style = monoBody
             )
@@ -79,36 +79,22 @@ internal fun DistanceDemo(
         Spacer(Modifier.height(8.dp))
         Text(
             text = buildAnnotatedString {
-                appendLine("HumanReadable.distance(myDistance, DistanceUnit.Meter, decimals)")
+                appendLine("HumanReadable.abbreviation(myNumber, decimals)")
                 withStyle(monoBodyStringBold) {
                     append("// \"")
                     append(
                         remember(selectedLanguageCode, myNumber, decimals) {
-                            HumanReadable.distance(
-                                value = myNumber.toLongOrNull() ?: 0L,
-                                unit = DistanceUnit.Meter,
-                                decimals = decimals.toIntOrNull() ?: 0
-                            )
-                        })
-                    append("\"")
-                }
-                appendLine()
-
-                appendLine("HumanReadable.distance(myDistance, DistanceUnit.Foot, decimals)")
-                withStyle(monoBodyStringBold) {
-                    append("// \"")
-                    append(
-                        remember(selectedLanguageCode, myNumber, decimals) {
-                            HumanReadable.distance(
-                                value = myNumber.toLongOrNull() ?: 0L,
-                                unit = DistanceUnit.Foot,
+                            HumanReadable.abbreviation(
+                                number = myNumber.toLongOrNull() ?: 0L,
                                 decimals = decimals.toIntOrNull() ?: 0
                             )
                         })
                     append("\"")
                 }
             },
-            style = monoBody
+            style = monoBody.copy(
+                textDirection = if (selectedLanguageCode == "ar") TextDirection.Rtl else TextDirection.Ltr
+            )
         )
     }
 }
