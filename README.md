@@ -42,6 +42,14 @@ HumanReadable.duration(544.hours) // "3 weeks"
 
 **Note**: The formatter switches to a bigger unit (minute, hour, day, ...) as soon as it can. See [Precision](#datetime-precision).
 
+To express a duration in a specific unit, pass a `DurationUnit`:
+
+```kotlin
+HumanReadable.duration(32.days, unit = DurationUnit.Days) // "32 days"
+HumanReadable.duration(90.minutes, unit = DurationUnit.Seconds) // "5400 seconds"
+HumanReadable.duration(3.days, unit = DurationUnit.Hours) // "72 hours"
+```
+
 ### 📂 File size
 
 File size formatting uses base 1024.
@@ -108,7 +116,7 @@ There's also some rounding involved:
 
 * `8.days` and `10.days` are "1 week", but `11.days` already becomes "2 weeks"
 
-This behaviour may become configurable in future releases.
+This behaviour is configurable by passing a `DurationUnit` to `HumanReadable.duration()`.
 
 ## Localisation
 

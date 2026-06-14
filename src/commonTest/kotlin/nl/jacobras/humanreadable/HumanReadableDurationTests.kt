@@ -60,4 +60,42 @@ class HumanReadableDurationTests {
         assertThat(HumanReadable.duration(365.days)).isEqualTo("1 year")
         assertThat(HumanReadable.duration(1095.days)).isEqualTo("3 years")
     }
+
+    @Test
+    fun fixedUnitSeconds() {
+        assertThat(HumanReadable.duration(90.minutes, DurationUnit.Seconds)).isEqualTo("5400 seconds")
+        assertThat(HumanReadable.duration(1.hours, DurationUnit.Seconds)).isEqualTo("3600 seconds")
+    }
+
+    @Test
+    fun fixedUnitMinutes() {
+        assertThat(HumanReadable.duration(2.hours, DurationUnit.Minutes)).isEqualTo("120 minutes")
+    }
+
+    @Test
+    fun fixedUnitHours() {
+        assertThat(HumanReadable.duration(3.days, DurationUnit.Hours)).isEqualTo("72 hours")
+    }
+
+    @Test
+    fun fixedUnitDays() {
+        assertThat(HumanReadable.duration(32.days, DurationUnit.Days)).isEqualTo("32 days")
+        assertThat(HumanReadable.duration(1.days, DurationUnit.Days)).isEqualTo("1 day")
+    }
+
+    @Test
+    fun fixedUnitWeeks() {
+        assertThat(HumanReadable.duration(32.days, DurationUnit.Weeks)).isEqualTo("4 weeks")
+        assertThat(HumanReadable.duration(7.days, DurationUnit.Weeks)).isEqualTo("1 week")
+    }
+
+    @Test
+    fun fixedUnitMonths() {
+        assertThat(HumanReadable.duration(90.days, DurationUnit.Months)).isEqualTo("3 months")
+    }
+
+    @Test
+    fun fixedUnitYears() {
+        assertThat(HumanReadable.duration(730.days, DurationUnit.Years)).isEqualTo("2 years")
+    }
 }
