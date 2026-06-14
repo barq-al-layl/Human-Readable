@@ -45,6 +45,18 @@ public object HumanReadable {
     }
 
     /**
+     * Returns the given [duration] expressed in the specified [unit], in human-readable format.
+     * For example: a duration of 32 days with [DurationUnit.Days] returns "32 days".
+     *
+     * @param duration The [Duration] to format.
+     * @param unit The [DurationUnit] to express the result in.
+     * @return a formatted string
+     */
+    public fun duration(duration: Duration, unit: DurationUnit): String {
+        return safelyTranslate { formatDuration(duration, RelativeTime.Present, unit) }
+    }
+
+    /**
      * Returns the given [bytes] size in human-readable format. For example:
      * a size of 3_500_000 bytes returns "3.5 MB". Assumes base 1024.
      *
