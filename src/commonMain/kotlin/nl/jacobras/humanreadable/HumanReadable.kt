@@ -34,6 +34,24 @@ public object HumanReadable {
     }
 
     /**
+     * Returns the difference between now and [instant], expressed in the specified [unit],
+     * in human-readable format. Also supports instants in the future.
+     * For example: an instant that's 3 days ago with [DurationUnit.Hours] will return "72 hours ago".
+     *
+     * @param instant The [Instant] to format.
+     * @param unit The [DurationUnit] to express the result in.
+     * @return a formatted string
+     */
+    @OptIn(ExperimentalTime::class)
+    public fun timeAgo(
+        instant: Instant,
+        unit: DurationUnit,
+        baseInstant: Instant = Clock.System.now()
+    ): String {
+        return safelyTranslate { formatTimeAgo(instant, baseInstant, unit) }
+    }
+
+    /**
      * Returns the given [duration] in human-readable format.
      * For example: a duration of 3 seconds returns "3 seconds".
      *

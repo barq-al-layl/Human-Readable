@@ -34,4 +34,23 @@ class HumanReadableRelativeTimeTests {
     fun inPast() {
         assertThat(HumanReadable.timeAgo(now - 3.days)).isEqualTo("3 days ago")
     }
+
+    @Test
+    fun fixedUnitInPast() {
+        val base = now
+        assertThat(HumanReadable.timeAgo(base - 3.days, DurationUnit.Hours, baseInstant = base)).isEqualTo("72 hours ago")
+        assertThat(HumanReadable.timeAgo(base - 32.days, DurationUnit.Days, baseInstant = base)).isEqualTo("32 days ago")
+    }
+
+    @Test
+    fun fixedUnitInFuture() {
+        val base = now
+        assertThat(HumanReadable.timeAgo(base + 200.seconds, DurationUnit.Seconds, baseInstant = base)).isEqualTo("in 200 seconds")
+    }
+
+    @Test
+    fun fixedUnitNow() {
+        val base = now
+        assertThat(HumanReadable.timeAgo(base, DurationUnit.Seconds, baseInstant = base)).isEqualTo("now")
+    }
 }
